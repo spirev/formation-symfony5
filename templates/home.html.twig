@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Acceuil
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Nos produits phares</h1>
+    <div class="row">
+        {% for p in products %}
+        <div class="col">
+            <div class="card">
+                <img src="{{ p.mainPicture }}" class="img-fluid" alt="image du produit">
+                <div class="card-body">
+                    <h4 class="card-title">{{ p.name }} ({{ p.price / 100}}€)</h4>
+                    <span class="badge badge-warning">{{ p.category.name }}</span>
+                    <p class="card-text">{{ p.shortDescription }}</p>
+                    <a href="#" class="btn btn-primary btn-sm">Détails</a>
+                    <a href="#" class="btn btn-sucess btn-sm">Ajouter</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <h2>Un service irréprochable</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quibusdam assumenda ex? Numquam, at reiciendis possimus quae consequuntur recusandae distinctio fuga mollitia quam incidunt accusantium quidem ipsam expedita iste blanditiis!</p>
+    
+    <div class="row md-50">
+        {% include "shared/_assurance.html.twig" with {
+            'color': 'primary',
+            'icone': 'fas fa-truck',
+            'texte': "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum ipsam, quasi mollitia voluptate cupiditate sapiente consectetur voluptatum? Similique aut quasi temporibus iure a et vitae consectetur porro ducimus, iste mollitia!"
+        }%}
+        {% include "shared/_assurance.html.twig" with {
+            'color': 'success',
+            'icone': 'fas fa-check',
+            'texte': "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum ipsam, quasi mollitia voluptate cupiditate sapiente consectetur voluptatum? Similique aut quasi temporibus iure a et vitae consectetur porro ducimus, iste mollitia!"
+        }%}
+        {% include "shared/_assurance.html.twig" with {
+            'color': 'warning',
+            'icone': 'fas fa-lock',
+            'texte': "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum ipsam, quasi mollitia voluptate cupiditate sapiente consectetur voluptatum? Similique aut quasi temporibus iure a et vitae consectetur porro ducimus, iste mollitia!"
+        }%}
+    </div>
+{% endblock %}
