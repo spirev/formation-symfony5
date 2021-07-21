@@ -25,8 +25,13 @@
     </div>
 
     <button type="submit" class="btn btn-primary">
-        <i class="fas fa-save">Créer le produit</i>
+        <i class="fas fa-save">Editer le produit</i>
     </button>
 
     {{ form_end(formView) }}
+    
+    <a href="{{ path('product_show', {'product_slug': product.slug, 'category_slug': product.category.slug}) }}">
+        <button class="btn btn-info">Fiche produit</button>
+    </a>
+
 {% endblock %}

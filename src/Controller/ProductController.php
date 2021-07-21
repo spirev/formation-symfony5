@@ -76,7 +76,7 @@ class ProductController extends AbstractController
             $em->persist($data);
             $em->flush();
 
-            return $this->redirectToRoute('product_show',[
+            return $this->redirectToRoute('product_show', [
                 'category_slug' => $data->getCategory()->getSlug(),
                 'product_slug' => $data->getSlug()
             ]);
