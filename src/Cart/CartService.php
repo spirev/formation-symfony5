@@ -53,6 +53,10 @@ class CartService extends AbstractController{
 
     }
 
+    public function empty() {
+        $this->setCart([]);
+    }
+
     public function decrement($id) {
 
         $cart = $this->getCart();
@@ -88,6 +92,9 @@ class CartService extends AbstractController{
         return $totalPrice / 100;
     }
 
+    /**
+     * @return CartItem[]
+     */
     public function getDetailedCartItems(): array {
 
         $panier = [];
