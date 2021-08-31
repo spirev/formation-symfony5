@@ -11,9 +11,6 @@
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
     </head>
     <body>
     {% include "shared/_navbar.html.twig" %}
@@ -25,7 +22,12 @@
                 {% endfor %}
             </div>
         {% endfor %}
-        {% block body %}{% endblock %}
+        {% block body %}
+        
+            {% block javascripts %}
+                {#{{ encore_entry_script_tags('app') }}#}
+            {% endblock %}
+        {% endblock %}
     </div>
     </body>
 </html>
