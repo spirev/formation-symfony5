@@ -40,6 +40,7 @@ class ProductController extends AbstractController
      */
     public function category($slug, CategoryRepository $categoryRepository): Response
     {
+
         $category = $categoryRepository->findOneBy(['slug' => $slug]);
 
         if (!$category) {
