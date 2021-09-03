@@ -5,8 +5,8 @@ namespace App\EventDispatcher;
 use App\Event\PurchaseSuccessEvent;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PurchaseSuccessEmailSubscriber implements EventSubscriberInterface {
 
