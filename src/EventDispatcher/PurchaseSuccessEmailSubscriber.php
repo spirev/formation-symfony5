@@ -3,16 +3,18 @@
 namespace App\EventDispatcher;
 
 use App\Event\PurchaseSuccessEvent;
-use Psr\Log\LoggerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Mime\Address;
 
 class PurchaseSuccessEmailSubscriber implements EventSubscriberInterface {
 
-    protected $logger;
+    protected $mailer;
 
-    public function __construct(LoggerInterface $loggerInterface)
+    public function __construct(MailerInterface $mailerInterface)
     {
-        $this->logger = $loggerInterface;
+        $this->mailer = $mailerInterface;
     }
 
     public static function getSubscribedEvents()
@@ -23,6 +25,20 @@ class PurchaseSuccessEmailSubscriber implements EventSubscriberInterface {
     }
 
     public function sendSuccessEmail(PurchaseSuccessEvent $purchaseSuccessEvent) {
-        $this->logger->info("Un email a été envoyé pour la commande n°" . $purchaseSuccessEvent->getPurchase()->getId());
+
+        $user = $purchaseSuccessEvent->getPurchase()->getUser();
+        $purchase = $purchaseSuccessEvent->getPurchase();
+
+        $mail = new TemplatedEmail();
+        $mail->to(new Address($user->getEmail(), $user->getFullName()))
+        ->from("admin@mail.com")
+        ->subject("Votre commande n°" . $purchase->getId() . "a bien été confirmé !")
+        ->htmlTemplate('emails/purchase_success.html.twig')
+        ->context([
+            'purchase' => $purchase,
+            'user' => $user
+        ]);
+
+        $this->mailer->send($mail);
     }
 }
