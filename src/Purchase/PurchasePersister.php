@@ -23,7 +23,6 @@ class PurchasePersister extends AbstractController{
     public function storePurchase(Purchase $purchase) {
 
         $purchase->setUser($this->getUser());
-        $purchase->setPurchasedAt(new DateTime());
         $purchase->setTotal($this->cartService->getTotal() * 100);
 
         foreach ($this->cartService->getDetailedCartItems() as $cartItem) {

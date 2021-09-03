@@ -12,7 +12,6 @@ class PurchaseSuccessEvent extends Event {
     public function __construct(Purchase $purchase)
     {
         $this->purchase = $purchase;
-        dump('IN Purchase Event');
     }
 
     public function getPurchase() {

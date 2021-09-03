@@ -47,7 +47,6 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             if (!$categoryRepository->findBy(array('name' => $category->getName()))) {
-                $category->setSlug(strtolower($slugger->slug($category->getName())));
     
                 $em->persist($category);
                 $em->flush();

@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Event\ProductViewEvent;
 use App\Form\ProductType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -55,7 +57,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{category_slug}/{product_slug}", name="product_show", priority=-1)
      */
-    public function show($category_slug, $product_slug, CategoryRepository $categoryRepository , ProductRepository $productRepository) {
+    public function show($category_slug, $product_slug, CategoryRepository $categoryRepository , ProductRepository $productRepository, EventDispatcherInterface  $dispatcher) {
         
         $category = $categoryRepository->findOneBy(['slug' => $category_slug]);
         $product = $productRepository->findOneBy(['slug' => $product_slug]);
@@ -63,6 +65,9 @@ class ProductController extends AbstractController
         if (!$product || !$category) {
             throw $this->createNotFoundException("Le produit ou la categorie n'éxiste pas :");
         }
+
+        $dispatcher->dispatch(new ProductViewEvent($product), 'product_view');
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'category' => $category

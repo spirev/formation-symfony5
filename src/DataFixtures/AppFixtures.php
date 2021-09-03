@@ -65,15 +65,15 @@ class AppFixtures extends Fixture
         // Créé des catégories en plus de produits correspondant a chaqune de celle ci
         for ($c = 0;$c < 3;$c++){
             $category = new Category;
-            $category->setName($faker->name())
-            ->setSlug(strtolower($this->slugger->slug($category->getName())));
+            $category->setName($faker->name());
             $manager->persist($category);
 
             for($p = 0;$p < 5;$p++){
                 $product = new Product;
                 $product->setName($faker->name())
                 ->setPrice(mt_rand(4000, 20000))
-                ->setSlug(strtolower($this->slugger->slug($product->getName())))
+                // mis dans un evenement doctrine
+                // ->setSlug(strtolower($this->slugger->slug($product->getName())))
                 ->setCategory($category)
                 ->setShortDescription($faker->paragraph())
                 ->setMainPicture($faker->imageUrl(400, 400, true));
